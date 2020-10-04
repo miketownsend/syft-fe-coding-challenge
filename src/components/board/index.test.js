@@ -25,6 +25,7 @@ const getCell = (row, column) => {
 
 describe("Tic tac toe", () => {
   beforeEach(renderBoard)
+  afterEach(cleanup)
 
   test("when initially rendered, the cells and initial player are shown", () => {
     expect(screen.getByText("Row 0, Column 0")).toBeInTheDocument()
@@ -43,10 +44,10 @@ describe("Tic tac toe", () => {
 
   test("three cells in a row are clicked by the same player, the win condition is set", () => {
     clickCell(0, 0) // player x
-    clickCell(1, 0) // player o
-    clickCell(0, 1) // player x
-    clickCell(1, 1) // player o
-    clickCell(0, 2) // player x
+    clickCell(0, 1) // player o
+    clickCell(1, 0) // player x
+    clickCell(0, 2) // player o
+    clickCell(2, 0) // player x
 
     expect(screen.getByText("Player X wins", { exact: false }))
     expect(screen.getByText("Click to restart"))

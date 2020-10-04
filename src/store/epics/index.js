@@ -1,16 +1,26 @@
 import { combineEpics, ofType } from "redux-observable"
 import { filter, map } from "rxjs/operators"
-import { every, eq } from "lodash/fp"
+import { every, eq, pipe, map as lodashMap } from "lodash/fp"
 import { SELECT_CELL, winGame, WIN_GAME } from "../actions/moves"
 
 const selectBoard = (state) => state.board
 const selectGame = (state) => state.game
 
 const checkForWinningMove = (board, row, col, currentPlayer) => {
-  return checkRowForWinningMove(board, row, currentPlayer)
+  return (
+    checkRowForWinCondition(board, row, currentPlayer) ||
+    checkColumnForWinCondition(board, col, currentPlayer)
+  )
 }
 
-const checkRowForWinningMove = (board, row, currentPlayer) =>
+const checkColumnForWinCondition = (board, col, currentPlayer) => {
+  return pipe(
+    lodashMap((row) => row[col]),
+    every(eq(currentPlayer))
+  )(board)
+}
+
+const checkRowForWinCondition = (board, row, currentPlayer) =>
   every(eq(currentPlayer))(board[row])
 
 const winnerEpic = (action$, state$) =>
