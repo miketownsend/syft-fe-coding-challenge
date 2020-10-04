@@ -36,6 +36,11 @@ export const Board = () => {
           ))
         )}
       </ul>
+      {game.winner && (
+        <div className={"WinnerOverlay"}>
+          <h1 className={"WinnerBanner"}>Player {game.winner} Wins!!!</h1>
+        </div>
+      )}
     </div>
   )
 }

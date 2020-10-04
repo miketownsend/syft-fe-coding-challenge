@@ -40,4 +40,24 @@ describe("Tic tac toe", () => {
     expect(getCell(0, 0)).toHaveTextContent("X")
     expect(screen.getByText("Player O's turn")).toBeInTheDocument()
   })
+
+  test("three cells in a row are clicked by the same player, the win condition is set", () => {
+    clickCell(0, 0) // player x
+    clickCell(1, 0) // player o
+    clickCell(0, 1) // player x
+    clickCell(1, 1) // player o
+    clickCell(0, 2) // player x
+
+    expect(screen.getByText("Player X wins", { exact: false }))
+  })
+
+  test("three cells in a row are clicked by the same player, the win condition is set", () => {
+    clickCell(0, 0) // player x
+    clickCell(1, 0) // player o
+    clickCell(0, 1) // player x
+    clickCell(1, 1) // player o
+    clickCell(0, 2) // player x
+
+    expect(screen.getByText("Player X wins", { exact: false }))
+  })
 })

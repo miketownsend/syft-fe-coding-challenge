@@ -10,6 +10,7 @@ h2 {
 }
 
 .Board {
+  position: relative;
   padding: 4px;
 }
 
@@ -27,4 +28,25 @@ h2 {
 
   height: 45vh;
   width: 45vh;
+}
+
+.WinnerOverlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: #9d7f7f3f;
+}
+
+.WinnerBanner {
+  position: absolute;
+  width: 100vw;
+  left: 50%;
+  top: 50%;
+  font-size: calc(4em + 5vh);
+
+  transform: translateX(-50%) translateY(-1.5em) rotate(-20deg);
+  -webkit-text-stroke-width: 4px;
+  -webkit-text-stroke-color: white;
 }
