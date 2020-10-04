@@ -52,4 +52,34 @@ describe("Tic tac toe", () => {
     expect(screen.getByText("Player X wins", { exact: false }))
     expect(screen.getByText("Click to restart"))
   })
+
+  test("three cells from top left -> bottom right diagonel are clicked by the same player, the win condition is set", () => {
+    clickCell(0, 0) // player x
+    clickCell(0, 1) // player o
+    clickCell(1, 1) // player x
+    clickCell(0, 2) // player o
+    clickCell(2, 2) // player x
+
+    expect(screen.getByText("Player X wins", { exact: false }))
+    expect(screen.getByText("Click to restart"))
+  })
+
+  test("three cells from top right -> bottom left diagonel are clicked by the same player, the win condition is set", () => {
+    clickCell(0, 2) // player x
+    clickCell(0, 0) // player o
+    clickCell(1, 1) // player x
+    clickCell(0, 1) // player o
+    clickCell(2, 0) // player x
+
+    expect(screen.getByText("Player X wins", { exact: false }))
+    expect(screen.getByText("Click to restart"))
+  })
+
+  // some other tests I would do if I had more time
+  // - three cells by same player in non-winning places doesnt result in a win
+  // - three cells by player O results in a win
+  // - clicking the reset results in initial state
+  // - unit test other win conditions straight on the epic
+  // - wouldn't add more unit tests for actions / reducer for a project this simple as
+  //   behaviour is covered in the Board tests
 })
