@@ -2,26 +2,29 @@ import React from "react"
 import classnames from "classnames"
 import "./index.css"
 
-const Cell = ({ value, x, y }) => {
-  const id = `input-${x}-${y}`
+const noop = () => {}
+
+const Cell = ({ value, row, column, onClick }) => {
+  const id = `input-${row}-${column}`
   return (
     <li
       className={classnames("Cell", {
-        [`CellPlayer${value}`]: !!value,
+        [`CheckedCell`]: !!value,
       })}
     >
       <label
         id={id}
         className={"VisuallyHidden"}
-      >{`Row ${y}, Column ${x}`}</label>
-      <button
+      >{`Row ${row}, Column ${column}`}</label>
+      <div
         role="checkbox"
         aria-checked="mixed"
         aria-labelledby={id}
         className={"CellValue"}
+        onClick={value ? noop : () => onClick(row, column)}
       >
         {value ? value : ""}
-      </button>
+      </div>
     </li>
   )
 }

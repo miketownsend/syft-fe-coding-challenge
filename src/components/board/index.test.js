@@ -1,24 +1,43 @@
 import React from "react"
-import { cleanup, render, screen } from "@testing-library/react"
+import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { Board } from "."
 import configureStore from "../../store"
 import { Provider } from "react-redux"
 
-describe("Tic Tac Toe rendering", () => {
-  beforeAll(() => {
-    render(
-      <Provider store={configureStore()}>
-        <Board />
-      </Provider>
-    )
-  })
+const renderBoard = () => {
+  render(
+    <Provider store={configureStore()}>
+      <Board />
+    </Provider>
+  )
+}
 
-  afterAll(cleanup)
+const buildCellLabel = (row, column) => `Row ${row}, Column ${column}`
 
-  it("renders all the cells", () => {
+const clickCell = async (row, column) => {
+  const el = screen.getByLabelText(buildCellLabel(row, column))
+  fireEvent.click(el)
+}
+
+const getCell = (row, column) => {
+  return screen.getByLabelText(buildCellLabel(row, column))
+}
+
+describe("Tic tac toe", () => {
+  beforeEach(renderBoard)
+
+  test("when initially rendered, the cells and initial player are shown", () => {
     expect(screen.getByText("Row 0, Column 0")).toBeInTheDocument()
     expect(screen.getByText("Row 1, Column 0")).toBeInTheDocument()
     expect(screen.getByText("Row 2, Column 0")).toBeInTheDocument()
     expect(screen.getByText("Row 2, Column 2")).toBeInTheDocument()
+
+    expect(screen.getByText("Player X's turn")).toBeInTheDocument()
+  })
+
+  test("when a cell is clicked, the value is set and the current player changes", () => {
+    clickCell(0, 0)
+    expect(getCell(0, 0)).toHaveTextContent("X")
+    expect(screen.getByText("Player O's turn")).toBeInTheDocument()
   })
 })
