@@ -50,3 +50,11 @@ h2 {
   -webkit-text-stroke-width: 4px;
   -webkit-text-stroke-color: white;
 }
+
+.RestartMessage {
+  position: absolute;
+  bottom: 50px;
+  width: 100vh;
+  text-align: center;
+  font-size: 2em;
+}

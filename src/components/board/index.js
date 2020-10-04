@@ -3,7 +3,7 @@ import "./index.css"
 import { useSelector, useDispatch } from "react-redux"
 
 import Cell from "../Cell"
-import { selectCell } from "../../store/actions/moves"
+import { selectCell, restartGame } from "../../store/actions/moves"
 
 const selectBoard = (state) => state.board
 const selectGame = (state) => state.game
@@ -17,6 +17,10 @@ export const Board = () => {
 
   const onCellClick = (row, column) => {
     dispatch(selectCell(game.currentPlayer, row, column))
+  }
+
+  const onBannerClick = (row, column) => {
+    dispatch(restartGame())
   }
 
   return (
@@ -37,8 +41,9 @@ export const Board = () => {
         )}
       </ul>
       {game.winner && (
-        <div className={"WinnerOverlay"}>
+        <div className={"WinnerOverlay"} onClick={onBannerClick}>
           <h1 className={"WinnerBanner"}>Player {game.winner} Wins!!!</h1>
+          <p className={"RestartMessage"}>Click to restart</p>
         </div>
       )}
     </div>
